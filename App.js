@@ -1,16 +1,17 @@
-import React, {useState, useRef} from 'react';
-import { Button, StyleSheet, Text, TextInput, View, Alert, FlatList} from 'react-native';
+import React, {useState} from 'react';
+import { Button, StyleSheet, Text, TextInput, View, Alert} from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
+import {REACT_APP_API_KEY} from '@env';
 
 export default function App() {
 
-  const key = 'QH7C1sdCLwdhzG0XT0uefsRp72HMXkHf';
+  const key = REACT_APP_API_KEY
 
   const [region, setRegion] = useState({
     latitude: 60.451650744313014,
     longitude: 22.267172535195293,
-    latitudeDelta: 0.0322,
-    longitudeDelta: 0.0221
+    latitudeDelta: 0.0200,
+    longitudeDelta: 0.0150
   });
 
   const [location, setLocation] = useState('');
@@ -18,7 +19,7 @@ export default function App() {
 
   const getAddress = () => {
     
-    fetch(`http://www.mapquestapi.com/geocoding/v1/address?key=${key}&street=${location}`)
+    fetch(`http://www.mapquestapi.com/geocoding/v1/address?key=${key}&street=${location}&adminArea1=FI`)
     .then(response => response.json())
     .then(mapquestData => {
       setRegion({
@@ -58,6 +59,8 @@ export default function App() {
     onPress={getAddress}
     ></Button>
     </View>
+
+    
 
    
 
